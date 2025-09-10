@@ -371,8 +371,8 @@
                 <td>{{ $donor->email }}</td>
                 <td>{{ $donor->phone }}</td>
                 <td>{{ $donor->blood_group }}</td>
-                <td>{{ $donor->dob ?? 'N/A' }}</td>
-                <td>{{ $donor->address ?? 'N/A' }}</td>
+                <td>{{ $donor->dob }}</td>
+                <td>{{ $donor->address}}</td>
             </tr>
         @empty
             <tr>

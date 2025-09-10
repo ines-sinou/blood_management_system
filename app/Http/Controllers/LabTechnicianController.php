@@ -14,25 +14,20 @@ class LabTechnicianController extends Controller
      * - See appointments for their hospital
      * - See donors who have appointments in their hospital
      */
-    public function dashboard()
-    {
-        $hospitalId = Auth::user()->hospital_id; // ✅ make sure labtech user has hospital_id
+   public function dashboard()
+{
+    $hospitalId = auth()->user()->hospital_id;
 
-        // Fetch appointments for this hospital
-        $appointments = Appointment::where('hospital_id', $hospitalId)
-            ->with('donor') // eager load donor info
-            ->orderBy('appointment_date')
-            ->get();
+    // Fetch appointments at this hospital
+    $appointments = Appointment::where('hospital_id', $hospitalId)
+        ->orderBy('appointment_date')
+        ->get();
 
-        // Fetch donors who have appointments at this hospital
-        $donors = User::where('role_id', 4) // role_id = 4 → donor
-            ->whereHas('appointments', function ($query) use ($hospitalId) {
-                $query->where('hospital_id', $hospitalId);
-            })
-            ->get();
+    // Fetch all donors (registered in the system)
+    $donors = User::where('role_id', 4)->get();
 
-        return view('lab_technician.dashboard', compact('appointments', 'donors'));
-    }
+    return view('lab_technician.dashboard', compact('appointments', 'donors'));
+}
 
     /**
      * Confirm appointment

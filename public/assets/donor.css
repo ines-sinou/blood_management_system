@@ -1,0 +1,109 @@
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #fff5f5;
+            min-height: 100vh;
+        }
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            background: linear-gradient(180deg, #dc3545, #b02a37);
+            color: white;
+            padding-top: 30px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        .sidebar .nav-link {
+            color: white;
+            padding: 15px 20px;
+            border-radius: 0 25px 25px 0;
+            transition: all 0.3s ease;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: #ffffff22;
+            color: #fff;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+            .ines-welcome-card {
+            background: url("assets/bloodshape.webp") no-repeat;
+            background-size: cover;
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            padding: 10px 20px; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* push items to edges */
+            flex-wrap: wrap;
+        }
+        .ines-welcome-card .welcome-text {
+            max-width: 70%; /* avoid overlap with button */
+        }
+
+        .stat-card {
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .progress-circle {
+            width: 120px;
+            height: 120px;
+            background: conic-gradient(#dc3545 0% var(--progress), #e9ecef 0%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin: 0 auto;
+        }
+        .progress-circle::before {
+            content: attr(data-progress) '%';
+            position: absolute;
+            background: white;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #dc3545;
+        }
+        .table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .btn-donate {
+            background: #dc3545;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+        .btn-donate:hover {
+            background: #b02a37;
+            transform: scale(1.05);
+        }
+        #calendar {
+            max-width: 100%;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    

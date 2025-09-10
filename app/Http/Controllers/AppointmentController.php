@@ -9,34 +9,37 @@ use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
-    public function index()
-    {
-        // Fetch hospitals for dropdown
-        $hospitals = Hospital::all();
+  public function index()
+{
+    // Fetch hospitals for dropdown
+    $hospitals = Hospital::all();
 
-        // Fetch appointments for the logged-in donor
-        $appointments = Appointment::where('user_id', Auth::id())->get();
+    // Fetch appointments for the logged-in donor
+    $appointments = Appointment::where('user_id', Auth::id())->get();
 
-        // Format events for FullCalendar
-      $events = Appointment::with('hospital', 'donor')->get()->map(function($appointment) {
-    return [
-        'id' => $appointment->id,
-        'title' => $appointment->hospital->name, // or donor's name
-        'start' => $appointment->appointment_date,
-        'status' => $appointment->status,
-        'notes' => $appointment->notes,
-        'color' => match($appointment->status) {
-            'confirmed' => '#28a745', // green
-            'pending' => '#ffc107',   // yellow
-            'cancelled' => '#dc3545', // red
-            default => '#0d6efd'
-        }
-    ];
-});
+    // Only show this donor’s appointments on the calendar
+    $events = Appointment::with('hospital', 'donor')
+        ->where('user_id', Auth::id())
+        ->get()
+        ->map(function($appointment) {
+            return [
+                'id'     => $appointment->id,
+                'title'  => $appointment->hospital->name,
+                'start'  => $appointment->appointment_date,
+                'status' => $appointment->status,
+                'notes'  => $appointment->notes,
+                'color'  => match($appointment->status) {
+                    'confirmed' => '#28a745',
+                    'pending'   => '#ffc107',
+                    'cancelled' => '#dc3545',
+                    default     => '#0d6efd'
+                }
+            ];
+        });
 
+    return view('donor.dashboard', compact('hospitals', 'events'));
+}
 
-        return view('donor.dashboard', compact('hospitals', 'events'));
-    }
 
      public function store(Request $request)
     {

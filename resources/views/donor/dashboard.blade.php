@@ -47,7 +47,7 @@
             padding: 30px;
         }
             .ines-welcome-card {
-            background: url("assets/bloodshape.webp") no-repeat;
+            background: url('{{ asset('/assets/bloodshape.webp') }}') no-repeat;
             background-size: cover;
             color: white;
             border-radius: 15px;
